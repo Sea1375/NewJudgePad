@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { JudgeService } from '../../core/services/judge.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from '../../core/utils/validators';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-reset',
+  templateUrl: './reset.component.html',
+  styleUrls: ['./reset.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class ResetComponent implements OnInit {
 
   isLoading = false;
   success: string = 'none';
-
   form: FormGroup = this.formBuilder.group({
+    oldUsername: ['', Validators.required],
+    oldPassword: ['', Validators.required],
     name:['', [Validators.required]],
     username: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -22,38 +22,32 @@ export class RegisterComponent implements OnInit {
     confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
   });
 
-  /***
-   * { firstName: string, lastName: string, address: { street, zip, code }}  formGroup
-   * { firstName, lastName, clothes: [{ color, brand, id }, {color, brand, id}] }  formArray
-   *
-   *
-   * @param judgeService
-   * @param formBuilder
-   */
-
   constructor(
     private judgeService: JudgeService,
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    /*this.form.valueChanges.subscribe(res => {
-      console.log(res);
-    });*/
   }
 
-  async register(): Promise<any> {
+  async reset(): Promise<any> {
     try {
       this.isLoading = true;
       this.success = 'none';
       console.log(this.form.value.name);
-      await this.judgeService.register({
+      const result: { status: boolean }  = await this.judgeService.reset({
+        oldUsername: this.form.value.oldUsername,
+        oldPassword: this.form.value.oldPassword,
         name: this.form.value.name,
         username: this.form.value.username,
         email: this.form.value.email,
         password: this.form.value.password
       }).toPromise();
-      this.success = 'success';
+      if(result.status) {
+        this.success = 'success';
+      } else {
+        this.success = 'notExist';
+      }
     } catch (e) {
       this.success = 'failed';
     } finally {

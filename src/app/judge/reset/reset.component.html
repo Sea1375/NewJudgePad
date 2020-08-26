@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="loginBody p-3">
+    <form [formGroup]="form" (ngSubmit)="reset()">
+      <div class="login-header">
+        <h2 class="text-center mt-2 text-info"><i class="fas fa-user"></i> Judge</h2>
+      </div>
+      <div class="login-label text-center m-1">
+        <h5>------ Reset -------</h5>
+      </div>
+      <div class="login-form text-left mx-3 my-3">
+          <label for="oldUsername">Please type your username</label>
+          <input type="text" class="form-control form-control-lg input-lg" id="oldUsername" placeholder="Present Username" formControlName="oldUsername">
+          <label for="oldPassword">Please type your password</label>
+          <input type="password" class="form-control form-control-lg input-lg" id="oldPassword" placeholder="Present Password" formControlName="oldPassword">
+        <h5 class="mt-5 text-center">Please type your new account information</h5>
+          <label for="name"></label>
+          <input type="text" class="form-control form-control-lg input-lg" id="name" placeholder="Name" formControlName="name">
+          <label for="username"></label>
+          <input type="text" class="form-control form-control-lg input-lg" id="username" placeholder="Username" formControlName="username">
+          <label for="email"></label>
+          <input type="email" class="form-control form-control-lg input-lg" id="email" placeholder="Email" formControlName="email">
+          <label for="password"></label>
+          <input type="password" class="form-control form-control-lg input-lg" id="password" placeholder="Password" formControlName="password">
+          <label for="passwordConfirm"></label>
+          <input type="password" class="form-control form-control-lg input-lg" id="passwordConfirm" placeholder="Confirm password" formControlName="confirmPassword">
+      </div>
+      <div *ngIf="isLoading" class="mt-1">
+        <h6 class="text-secondary">Reseting...</h6>
+      </div>
+      <div *ngIf="success == 'success'" class="mt-1">
+        <h6 class="text-success">This user is registered successfully.</h6>
+      </div>
+      <div *ngIf="success == 'notExist'" class="mt-1">
+        <h6 class="text-success">This username and password is not existed.</h6>
+      </div>
+      <div *ngIf="success == 'failed'" class="mt-1">
+        <h6 class="text-danger">This user register is failed.</h6>
+      </div>
+      <div class="my-4">
+        <button class="btn btn-primary" [disabled]="form.invalid">Register</button>
+      </div>
+      <div class="='px-3 mt-2 mx-3 text-right">
+        <h5><a [routerLink]="['../../judge/login']">Back</a></h5>
+      </div>
+    </form>
+  </div>
+</div>

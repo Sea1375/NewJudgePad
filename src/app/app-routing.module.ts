@@ -8,16 +8,19 @@ import {RecorderLoginComponent} from "./recorder/recorder-login/recorder-login.c
 import {JudgeSelectionComponent} from "./recorder/judge-selection/judge-selection.component";
 import {JudgeListComponent} from "./recorder/judge-list/judge-list.component";
 import {ScoreComponent} from "./recorder/score/score.component";
+import { ResetComponent } from './judge/reset/reset.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/judge/login', pathMatch: 'full' },
   { path: 'judge/login', component: JudgeLoginComponent },
   { path: 'judge/register', component: RegisterComponent },
+  { path: 'judge/reset', component: ResetComponent },
   { path: 'judge/pad', component: PadComponent },
+  { path: 'recorder', redirectTo: '/recorder/login', pathMatch: 'full' },
   { path: 'recorder/login', component: RecorderLoginComponent },
   { path: 'recorder/judge-selection', component: JudgeSelectionComponent },
   { path: 'recorder/judge-list', component: JudgeListComponent },
   { path: 'recorder/score', component: ScoreComponent },
-  { path: '', redirectTo: '/judge/login', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,1 +1,26 @@
-
+<div class="container">
+  <div class="loginBody p-3">
+    <div class="login-header">
+      <h2 class="text-center mt-5 text-info"><i class="fas fa-user"></i> Judge</h2>
+    </div>
+    <div class="login-label text-center m-3 mb-4">
+      <h5>------ Log In -------</h5>
+    </div>
+    <div class="login-form text-center mx-3">
+      <label for="user-name"></label>
+      <input type="text" [(ngModel)]="loginName" class="form-control form-control-lg input-lg" id="user-name" placeholder="Username" required>
+      <label for="user-password"></label>
+      <input type="password" [(ngModel)]="loginPass" class="form-control form-control-lg input-lg" id="user-password" placeholder="Password" required>
+    </div>
+    <div *ngIf="!registeredJudge" class="mt-1">
+      <h6 class="text-danger">Wrong username & password. Try again.</h6>
+    </div>
+    <div class="='login-button px-3 pt-5 mx-5">
+      <button type="submit" class="btn btn-info btn-lg btn-block" (click)="login()"><i class="fas fa-unlock" style="size: 5px; color: white"></i> Login</button>
+    </div>
+    <div class="='p-3 pt-5 mx-3 text-right">
+      <h5>No account? <a [routerLink]="['../../judge/register']">Register</a></h5>
+      <h5><a [routerLink]="['../../judge/reset']">Reset</a></h5>
+    </div>
+  </div>
+</div>
