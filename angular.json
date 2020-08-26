@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "judge-pad"
+    }
+  },
+  "defaultProject": "judge-pad",
+  "cli": {
+    "analytics": "9a14ffca-b281-49de-8537-c9fc8a40e524"
+  }
 }
