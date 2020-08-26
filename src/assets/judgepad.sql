@@ -1,4 +1,6 @@
-CREATE TABLE `user` (
+CREATE DATABASE `judgepad`;
+
+CREATE TABLE `judgepad`.`user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -6,7 +8,7 @@ CREATE TABLE `user` (
   `password` varchar(50) NOT NULL,
 PRIMARY KEY (`id`));
 
-CREATE TABLE `judge` (
+CREATE TABLE `judgepad`.`judge` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
   `judgeNumber` varchar(50) NOT NULL,
   `userId` int(11) NULL,
@@ -16,15 +18,13 @@ CREATE TABLE `judge` (
   `backend` boolean NULL,
 PRIMARY KEY (`id`));
 
-CREATE TABLE `admin` (
-  `name` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+CREATE TABLE `judgepad`.`admin` (
+  `userId` int(11) NOT NULL,
   `diveCode` varchar(50) NULL
 );
 
-INSERT INTO admin(name, username, email, password, diveCode) VALUES('Christian', 'Christian', 'christian@brooker.com', 'judgepad', '');
+INSERT INTO admin(userId, diveCode) VALUES(1, '');
+INSERT INTO user(name, username, email, password) VALUES('Cristian', 'Cristian', 'cristian@brooker.com', 'judgepad');
 
 INSERT INTO judge(judgeNumber, userId, score, msgFromRecorder, msgToRecorder, backend) VALUES('Judge 1', 0, 0, '', '', false);
 INSERT INTO judge(judgeNumber, userId, score, msgFromRecorder, msgToRecorder, backend) VALUES('Judge 2', 0, 0, '', '', false);

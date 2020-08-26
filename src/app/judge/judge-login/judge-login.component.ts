@@ -11,5 +11,4 @@ export class JudgeLoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
