@@ -30,4 +30,8 @@ export class JudgeLoginComponent implements OnInit {
       this.registeredJudge = false;
     }
   }
+
+  goToRecorder(): void {
+    this.router.navigate(['/recorder/login']);
+  }
 }

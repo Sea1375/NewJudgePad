@@ -8,11 +8,16 @@ import { AppComponent } from './app.component';
 import { JudgeLoginComponent } from './judge/judge-login/judge-login.component';
 import { RegisterComponent } from './judge/register/register.component';
 import { PadComponent } from './judge/pad/pad.component';
-import { JudgeSelectionComponent } from './recorder/judge-selection/judge-selection.component';
-import { JudgeListComponent } from './recorder/judge-list/judge-list.component';
-import { ScoreComponent } from './recorder/score/score.component';
+import { JudgeSelectionComponent } from './recorder/recorder/judge-selection/judge-selection.component';
+import { JudgeListComponent } from './recorder/recorder/judge-list/judge-list.component';
+import { ScoreComponent } from './recorder/recorder/score/score.component';
 import { RecorderLoginComponent } from './recorder/recorder-login/recorder-login.component';
 import { ResetComponent } from './judge/reset/reset.component';
+import { SummaryComponent } from './judge/pad/summary/summary.component';
+import { KeyboardComponent } from './judge/pad/keyboard/keyboard.component';
+import { MessageComponent } from './judge/pad/message/message.component';
+import { RecorderComponent } from './recorder/recorder/recorder.component';
+import { FilterPipe } from './core/pipe/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,12 @@ import { ResetComponent } from './judge/reset/reset.component';
     JudgeListComponent,
     ScoreComponent,
     RecorderLoginComponent,
-    ResetComponent
+    ResetComponent,
+    SummaryComponent,
+    KeyboardComponent,
+    MessageComponent,
+    RecorderComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

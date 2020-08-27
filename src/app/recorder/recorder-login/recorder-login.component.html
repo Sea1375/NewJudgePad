@@ -1,8 +1,8 @@
 <div class="container d-flex justify-content-center align-items-center mt-3">
   <div class="loginBody p-3">
-    <i style='font-size:24px' class='fas recorder text-info' (click)="goToRecorder()">&#xf51a;</i>
+    <i style='font-size:24px' class='fas fa-user judge text-info' (click)="goToJudge()"></i>
     <div class="login-header">
-      <h2 class="text-center mt-5 text-info"><i class="fas fa-user"></i> Judge</h2>
+      <h2 class="text-center mt-5 text-info"><i style='font-size:24px' class='fas'>&#xf51a;</i> Recorder</h2>
     </div>
     <div class="login-label text-center m-3 mb-4">
       <h5>------ Log In -------</h5>
@@ -13,15 +13,8 @@
       <label for="user-password"></label>
       <input type="password" [(ngModel)]="loginPass" class="form-control form-control-lg input-lg" id="user-password" placeholder="Password" required>
     </div>
-    <div *ngIf="!registeredJudge" class="mt-1">
-      <h6 class="text-danger">Wrong username & password. Try again.</h6>
-    </div>
-    <div class="='login-button px-3 pt-5 mx-5">
+    <div class="='login-button px-3 m-5">
       <button type="submit" class="btn btn-info btn-lg btn-block" (click)="login()"><i class="fas fa-unlock" style="size: 5px; color: white"></i> Login</button>
-    </div>
-    <div class="='p-3 pt-5 mx-3 text-right">
-      <h5>No account? <a [routerLink]="['../../judge/register']">Register</a></h5>
-      <h5><a [routerLink]="['../../judge/reset']">Reset</a></h5>
     </div>
   </div>
 </div>

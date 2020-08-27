@@ -1,0 +1,21 @@
+<table class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center">Name</th>
+    <th class="text-center">Username</th>
+    <th class="text-center">Email</th>
+    <th class="text-center">Backend</th>
+    <th class="text-center">Password Reset</th>
+  </tr>
+  <tr *ngFor="let judge of judges; let id = index">
+    <td>{{judge.name}}</td>
+    <td>{{judge.username}}</td>
+    <td>{{judge.email}}</td>
+    <td>
+      <label for="backend"></label>
+      <input type="checkbox" id="backend" (change)="changeCheckbox(id, $event)" [checked]="judge.backend">
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="reset(judge.userId)">Reset</button>
+    </td>
+  </tr>
+</table>

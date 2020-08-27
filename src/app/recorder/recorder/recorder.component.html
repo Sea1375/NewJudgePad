@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="m-2">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-info" (click)="select('listOfJudges')">List of Judges</button>
+      <button type="button" class="btn btn-outline-info" (click)="select('judgeSelection')">Judge Selection</button>
+      <button type="button" class="btn btn-outline-info" (click)="select('scoresPage')">Scores Page</button>
+    </div>
+  </div>
+  <div *ngIf="selectedPage=='listOfJudges'">
+    <app-judge-list></app-judge-list>
+  </div>
+  <div *ngIf="selectedPage=='judgeSelection'">
+    <app-judge-selection></app-judge-selection>
+  </div>
+  <div *ngIf="selectedPage=='scoresPage'">
+    <app-score></app-score>
+  </div>
+</div>

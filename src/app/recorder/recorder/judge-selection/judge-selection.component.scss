@@ -1,0 +1,16 @@
+.list-pad {
+  max-height: 200px;
+  overflow: auto;
+}
+table{
+  padding: 0px;
+  tr {
+    padding: 0;
+    td {
+      padding: 0;
+      input {
+        margin: 0;
+      }
+    }
+  }
+}

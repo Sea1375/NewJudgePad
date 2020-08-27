@@ -1,0 +1,28 @@
+<div class="card bg-light text-dark mt-3">
+  <div class="card-body text-center">
+    <div class="table-responsive" id="result">
+      <h3 *ngIf="!status" class="text-black-50">A summary of score is being ready...</h3>
+      <table class="table table-bordered table-responsive-md table-striped text-center" *ngIf="status">
+        <tr>
+          <th class="text-center">J1</th>
+          <th class="text-center">J2</th>
+          <th class="text-center">J3</th>
+          <th class="text-center">J4</th>
+          <th class="text-center">J5</th>
+          <th class="text-center">J6</th>
+          <th class="text-center">J7</th>
+          <th class="text-center">Sy1</th>
+          <th class="text-center">Sy2</th>
+          <th class="text-center">Sy3</th>
+          <th class="text-center">Sy4</th>
+          <th class="text-center">Sy5</th>
+        </tr>
+        <tr>
+          <td *ngFor="let score of scores; let id = index">
+            {{score}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

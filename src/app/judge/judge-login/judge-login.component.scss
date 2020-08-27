@@ -1,7 +1,15 @@
 .container {
   text-align: center;
   .loginBody {
+    position: relative;
     width: 400px;
     background-color: #f0f0f0;
+    .recorder {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      cursor: pointer;
+    }
+
   }
 }
