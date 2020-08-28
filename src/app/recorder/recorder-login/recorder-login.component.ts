@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RecorderService } from '../../core/services/recorder.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-recorder-login',
@@ -15,6 +16,7 @@ export class RecorderLoginComponent implements OnInit {
 
   constructor(
     private recorderService: RecorderService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -22,10 +24,18 @@ export class RecorderLoginComponent implements OnInit {
   }
 
   async login(): Promise<any> {
-    const result: {isValid: boolean}  = await this.recorderService.login({username: this.loginName, password: this.loginPass}).toPromise();
-    if(result.isValid === true) {
-      this.router.navigate(['recorder/recorder']);
+    try {
+      const result: {isValid: boolean}  = await this.recorderService.login({username: this.loginName, password: this.loginPass}).toPromise();
+      this.authService.recorderSession = true;
+      if(result.isValid === true) {
+        this.router.navigate(['recorder/recorder']);
+      } else {
+        this.authService.recorderSession = true;
+      }
+    } catch (e) {
+      console.log(e);
     }
+
   }
 
   goToJudge(): void {

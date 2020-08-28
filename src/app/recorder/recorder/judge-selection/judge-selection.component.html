@@ -3,20 +3,10 @@
     <th class="text-center">Judge Number</th>
     <th class="text-center">Name</th>
   </tr>
-  <tr *ngFor="let judge of judges; let id = index">
+  <tr *ngFor="let judge of judges">
+    <td>{{ judge.judgeNumber }}</td>
     <td>
-      {{judge.judgeNumber}}
-    </td>
-    <td>
-      <input type="email" class="form-control" id="search-text" aria-describedby="search-text"
-             [(ngModel)]="searchText[id]" placeholder="Enter username to search" (focus)="setCursor(id)" (blur)="blurCursor(id)" [value]="judges[id].userId">
-      <div class="list-pad">
-        <ul class="list-group list-group-flush" *ngIf="cursor[id]">
-          <li class="list-group-item" *ngFor="let username of nameArray | filter: searchText[id] let nameId=index" (click)="putValue(id, nameId, username)">
-            {{username}}
-          </li>
-        </ul>
-      </div>
+      <ng-select [items]="users" bindLabel="username" [(ngModel)]="assignedUsers[judge.id]" (ngModelChange)="changeSelection()"></ng-select>
     </td>
   </tr>
 </table>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { JudgeService } from '../../core/services/judge.service';
 import { GeneralInfo } from '../../core/models/general-info';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-pad',
@@ -17,7 +18,8 @@ export class PadComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private judgeService: JudgeService
+    private judgeService: JudgeService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -25,8 +27,14 @@ export class PadComponent implements OnInit {
   }
 
   async getGeneralInfo(judgeId: number): Promise<any> {
-    this.generalInfo = await this.judgeService.getGeneralInfo(judgeId).toPromise();
-    console.log(this.generalInfo);
+    try {
+      this.generalInfo = await this.judgeService.getGeneralInfo(judgeId).toPromise();
+    } catch (e) {
+      if (e.status === 401) {
+        this.authService.judgeSession = false;
+        this.router.navigate(['/judge/login']);
+      }
+    }
   }
 
   logout(): void {

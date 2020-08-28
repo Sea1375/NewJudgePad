@@ -20,7 +20,7 @@
     <th class="text-center">Sy5</th>
   </tr>
   <tr>
-    <td *ngFor="let score of scores; let id = index">
+    <td *ngFor="let score of scores">
       {{score}}
     </td>
   </tr>
@@ -35,20 +35,18 @@
     <tr>
       <td><button class="btn btn-info" (click)="send()">Send message to judge</button></td>
       <td>
-        <input type="text" class="form-control" [value]="msgFromRecorder">
+        <input type="text" class="form-control" [(ngModel)]="msgFromRecorder">
       </td>
       <td>
-          <select class="form-control" id="sel1">
-            <option *ngFor="let judge of judges; let id=index">
-              {{judge.judgeNumber}}
-            </option>
-          </select>
+        <select class="form-control" id="sel1" [(ngModel)]="selectedJudgeId">
+          <option *ngFor="let judge of judges" [value]="judge.id">{{judge.judgeNumber}}</option>
+        </select>
       </td>
     </tr>
     <tr>
       <td colspan="3">Message from the judges</td>
     </tr>
-    <tr *ngFor="let judge of judges; let id=index">
+    <tr *ngFor="let judge of judges">
       <td>{{judge.judgeNumber}}</td>
       <td colspan="2">{{judge.msgToRecorder}}</td>
     </tr>

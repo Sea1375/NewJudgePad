@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Judge } from '../../../core/models/judge';
 import { JudgeService } from '../../../core/services/judge.service';
+import { User } from '../../../core/models/user';
 
 @Component({
   selector: 'app-judge-selection',
@@ -9,13 +10,10 @@ import { JudgeService } from '../../../core/services/judge.service';
 })
 export class JudgeSelectionComponent implements OnInit {
 
+  isLoading = false;
   judges: Judge[] = [];
-  usernames: {
-    name: string
-  }[];
-  nameArray = [];
-  cursor = [];
-  searchText = [];
+  users: User[] = [];
+  assignedUsers: any = {};
 
   constructor(
     private judgeService: JudgeService
@@ -23,34 +21,29 @@ export class JudgeSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.readJudges();
-    this.readUsernames();
-    for(let i = 0; i < 12; i ++) {
-      this.cursor[i] = false;
-      this.searchText[i] = '';
-    }
+    this.readUsers();
   }
 
   async readJudges(): Promise<any> {
     this.judges = await this.judgeService.readAll().toPromise();
   }
 
-  async readUsernames(): Promise<any> {
-    this.usernames = await this.judgeService.readUsernames().toPromise();
-    for(let i = 0; i < this.usernames.length; i++) {
-      this.nameArray.push(this.usernames[i].name);
+  async readUsers(): Promise<any> {
+    try {
+      this.isLoading = true;
+      this.users = await this.judgeService.readUsers().toPromise();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.isLoading = false;
     }
   }
 
-  setCursor(id: number): void {
-    this.cursor[id] = true;
-  }
-
-  blurCursor(id: number): void {
-    this.cursor[id] = false;
-  }
-
-  putValue(id: number, nameId: number, username: string) {
-    this.judges[id].userId = nameId;
+  changeSelection(): void {
+    const payload = Object.keys(this.assignedUsers).filter(key => this.assignedUsers[key] ? key : null).map(key => ({
+      judge_id: key,
+      user_id: this.assignedUsers[key].id
+    }));
   }
 
 }

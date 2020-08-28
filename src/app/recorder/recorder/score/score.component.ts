@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { JudgeService } from '../../../core/services/judge.service';
 import { Judge } from '../../../core/models/judge';
@@ -14,6 +15,7 @@ export class ScoreComponent implements OnInit {
   judges: Judge[];
   scores: number[] = [];
   msgFromRecorder: string = '';
+  selectedJudgeId: string;
 
   private autoSaveInterval: number = setInterval( ()=>{
     this.readJudges();
@@ -29,23 +31,19 @@ export class ScoreComponent implements OnInit {
   }
 
   async getDiveCode(): Promise<any> {
-    const result: {diveCode: string} =  await this.judgeService.getDiveCode().toPromise();
-    this.diveCode = result.diveCode;
+    this.diveCode = await this.judgeService.getDiveCode().pipe(map(res => res.diveCode)).toPromise();
   }
 
   async saveDiveCode(): Promise<any> {
-    console.log(this.diveCode);
     await this.judgeService.setDiveCode(this.diveCode).toPromise();
   }
 
   async readJudges(): Promise<any> {
     this.judges = await this.judgeService.readAll().toPromise();
-    for(let i = 0; i < this.judges.length; i ++) {
-      this.scores[i] = this.judges[i].score;
-    }
+    this.scores = this.judges.map(judge => judge.score);
   }
 
   async send(): Promise<any> {
-
+    // TODO: api integration
   }
 }

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JudgeGuard implements CanActivate {
+export class RecorderGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
@@ -18,11 +17,10 @@ export class JudgeGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // if current session is judge logged in then return true, otherwise return false
-    if (this.authService.judgeSession) {
-      return this.authService.judgeSession
+    if (this.authService.recorderSession) {
+      return this.authService.recorderSession
     } else {
-      this.router.navigate(['/judge/login']);
+      this.router.navigate(['/recorder/login']);
       return false;
     }
   }

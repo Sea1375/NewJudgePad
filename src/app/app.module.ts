@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,6 @@ import { SummaryComponent } from './judge/pad/summary/summary.component';
 import { KeyboardComponent } from './judge/pad/keyboard/keyboard.component';
 import { MessageComponent } from './judge/pad/message/message.component';
 import { RecorderComponent } from './recorder/recorder/recorder.component';
-import { FilterPipe } from './core/pipe/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,14 +34,14 @@ import { FilterPipe } from './core/pipe/filter.pipe';
     KeyboardComponent,
     MessageComponent,
     RecorderComponent,
-    FilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

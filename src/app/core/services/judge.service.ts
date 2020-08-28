@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { GeneralInfo } from '../models/general-info';
 import { Judge } from '../models/judge';
 import { UserJudge } from '../models/user-judge';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,8 @@ export class JudgeService {
     return this.http.get<Judge[]>(`${environment.api}/judge/read/all`);
   }
 
-  readUsernames(): Observable<{name: string}[]> {
-    return this.http.get<{name: string}[]>(`${environment.api}/user/read/name-all`);
+  readUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.api}/user/read/all`);
   }
 
   readJudgesUserInfo(): Observable<UserJudge[]> {
