@@ -28,17 +28,17 @@ export class JudgeLoginComponent implements OnInit {
     try {
       const result: {id: number} = await this.judgeService.login({username: this.loginName, password: this.loginPass}).toPromise();
       this.authService.judgeSession = true;
+      console.log(result);
       if(result.id != 0) {
         this.router.navigate(['judge/pad', result.id]);
       } else {
         this.registeredJudge = false;
+        this.authService.judgeSession = false;
       }
     } catch (e) {
       if (e.status === 401) {
-        alert('invalid login attempt');
+        this.registeredJudge = false;
       }
-    } finally {
-
     }
   }
 

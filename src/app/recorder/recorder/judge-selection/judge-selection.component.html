@@ -1,4 +1,4 @@
-<table class="table table-bordered table-responsive-md table-striped text-center">
+<table class="table table-bordered table-striped text-center">
   <tr>
     <th class="text-center">Judge Number</th>
     <th class="text-center">Name</th>
@@ -6,7 +6,19 @@
   <tr *ngFor="let judge of judges">
     <td>{{ judge.judgeNumber }}</td>
     <td>
-      <ng-select [items]="users" bindLabel="username" [(ngModel)]="assignedUsers[judge.id]" (ngModelChange)="changeSelection()"></ng-select>
+      <ng-select [items]="users" bindLabel="name" [(ngModel)]="assignedUsers[judge.id]"></ng-select>
+<!--      (ngModelChange)="changeSelection()"-->
     </td>
   </tr>
 </table>
+<div class="text-center">
+  <div *ngIf="status=='success'">
+    <h5>Judges are saved successfully.</h5>
+  </div>
+  <div *ngIf="status=='failed'">
+    <h5>This action is failed.</h5>
+  </div>
+</div>
+<div class="text-center">
+  <button class="btn btn-info text-center" (click)="save()">Save</button>
+</div>

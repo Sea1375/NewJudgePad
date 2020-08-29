@@ -11,6 +11,7 @@ import { User } from '../../../core/models/user';
 export class JudgeSelectionComponent implements OnInit {
 
   isLoading = false;
+  status = 'none';
   judges: Judge[] = [];
   users: User[] = [];
   assignedUsers: any = {};
@@ -26,6 +27,11 @@ export class JudgeSelectionComponent implements OnInit {
 
   async readJudges(): Promise<any> {
     this.judges = await this.judgeService.readAll().toPromise();
+    // this.assignedUsers = this.judges.filter(judge => judge.userId !=0).map(judge => ({
+    //   judge_id: judge.id,
+    //   user_id: judge.userId
+    // }));
+    // console.log(this.assignedUsers);
   }
 
   async readUsers(): Promise<any> {
@@ -39,11 +45,22 @@ export class JudgeSelectionComponent implements OnInit {
     }
   }
 
-  changeSelection(): void {
-    const payload = Object.keys(this.assignedUsers).filter(key => this.assignedUsers[key] ? key : null).map(key => ({
-      judge_id: key,
-      user_id: this.assignedUsers[key].id
-    }));
+  async save(): Promise<any> {
+    try {
+      const payload = Object.keys(this.assignedUsers).filter(key => this.assignedUsers[key] ? key : null).map(key => ({
+        judge_id: key,
+        user_id: this.assignedUsers[key].id
+      }));
+      for(let i = 1; i <= 12; i++) {
+        await this.judgeService.write(i, {userId: 0}).toPromise();
+      }
+      for(let i = 0; i < payload.length; i ++) {
+        await this.judgeService.write(Number(payload[i].judge_id), {userId: payload[i].user_id}).toPromise();
+      }
+      this.status = 'success';
+    } catch (e) {
+      console.log(e);
+      this.status = 'failed';
+    }
   }
-
 }

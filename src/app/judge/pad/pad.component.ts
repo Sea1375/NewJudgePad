@@ -14,6 +14,11 @@ export class PadComponent implements OnInit {
 
   id: number = Number(this.route.snapshot.params.id);
   generalInfo: GeneralInfo;
+  dive: { diveCode: string };
+
+  private autoSaveInterval: number = setInterval( ()=>{
+    this.readDiveCode();
+  },3000);
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +42,13 @@ export class PadComponent implements OnInit {
     }
   }
 
+  async readDiveCode(): Promise<any> {
+    try {
+      this.dive = await this.judgeService.getDiveCode().toPromise();
+    } catch (e) {
+      console.log(e);
+    }
+  }
   logout(): void {
     this.router.navigate(['judge/login']);
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { JudgeService } from '../../core/services/judge.service';
 import { confirmPasswordValidator } from '../../core/utils/validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +34,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private judgeService: JudgeService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class RegisterComponent implements OnInit {
         password: this.form.value.password
       }).toPromise();
       this.success = 'success';
+      this.router.navigate(['judge/login']);
     } catch (e) {
       this.success = 'failed';
     } finally {

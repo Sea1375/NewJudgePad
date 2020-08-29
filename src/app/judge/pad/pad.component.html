@@ -3,7 +3,7 @@
     <h3>{{generalInfo?.name}}</h3>
     <h5>{{generalInfo?.judgeNumber}}</h5>
     <app-summary></app-summary>
-    <h5>Dive Code: {{generalInfo?.diveCode}}</h5>
+    <h5>Dive Code: {{dive?.diveCode}}</h5>
     <app-keyboard [id]="id"></app-keyboard>
     <app-message [id]="id"></app-message>
     <button class="btn btn-info btn-lg btn-block m-5" (click)="logout()">Log Out</button>

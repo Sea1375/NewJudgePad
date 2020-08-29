@@ -24,7 +24,7 @@ CREATE TABLE `judgepad`.`admin` (
 );
 
 INSERT INTO admin(userId, diveCode) VALUES(1, '');
-INSERT INTO user(name, username, email, password) VALUES('Cristian', 'Cristian', 'cristian@brooker.com', 'judgepad');
+INSERT INTO user(name, username, email, password) VALUES('Christian', 'Christian', 'christian@brooker.com', 'judgepad');
 
 INSERT INTO judge(judgeNumber, userId, score, msgFromRecorder, msgToRecorder, backend) VALUES('Judge 1', 0, 0, '', '', false);
 INSERT INTO judge(judgeNumber, userId, score, msgFromRecorder, msgToRecorder, backend) VALUES('Judge 2', 0, 0, '', '', false);

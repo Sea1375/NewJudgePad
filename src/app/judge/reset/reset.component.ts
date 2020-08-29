@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JudgeService } from '../../core/services/judge.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from '../../core/utils/validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset',
@@ -24,7 +25,8 @@ export class ResetComponent implements OnInit {
 
   constructor(
     private judgeService: JudgeService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class ResetComponent implements OnInit {
       }).toPromise();
       if(result.status) {
         this.success = 'success';
+        this.router.navigate(['judge/login']);
       } else {
         this.success = 'notExist';
       }

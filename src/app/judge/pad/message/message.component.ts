@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { JudgeService } from '../../../core/services/judge.service';
-import { GeneralInfo } from '../../../core/models/general-info';
-import { Judge } from '../../../core/models/judge';
 
 @Component({
   selector: 'app-message',
@@ -14,7 +12,6 @@ export class MessageComponent implements OnInit {
   @Input() id: number;
   isLoading = false;
   msgToRecorder: string;
-  generalInfo: GeneralInfo;
   msgFromRecorder: string = '';
 
   private autoSaveInterval: number = setInterval( ()=>{
@@ -35,7 +32,7 @@ export class MessageComponent implements OnInit {
   async send(): Promise<any> {
     try {
       this.isLoading = true;
-      const result = await this.judgeService.write(this.id, {msgToRecorder: this.msgToRecorder}).toPromise();
+      await this.judgeService.write(this.id, {msgToRecorder: this.msgToRecorder}).toPromise();
     } catch (e) {
       console.log(e);
     } finally {

@@ -13,6 +13,7 @@ export class RecorderLoginComponent implements OnInit {
 
   loginName: string;
   loginPass: string;
+  status: string = '';
 
   constructor(
     private recorderService: RecorderService,
@@ -30,7 +31,8 @@ export class RecorderLoginComponent implements OnInit {
       if(result.isValid === true) {
         this.router.navigate(['recorder/recorder']);
       } else {
-        this.authService.recorderSession = true;
+        this.authService.recorderSession = false;
+        this.status = 'failed';
       }
     } catch (e) {
       console.log(e);

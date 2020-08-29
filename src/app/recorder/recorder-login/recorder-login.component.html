@@ -13,6 +13,9 @@
       <label for="user-password"></label>
       <input type="password" [(ngModel)]="loginPass" class="form-control form-control-lg input-lg" id="user-password" placeholder="Password" required>
     </div>
+    <div *ngIf="status=='failed'" class="text-danger">
+      There are not a permission.
+    </div>
     <div class="='login-button px-3 m-5">
       <button type="submit" class="btn btn-info btn-lg btn-block" (click)="login()"><i class="fas fa-unlock" style="size: 5px; color: white"></i> Login</button>
     </div>

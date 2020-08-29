@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { JudgeService } from '../../../core/services/judge.service';
@@ -31,11 +31,19 @@ export class ScoreComponent implements OnInit {
   }
 
   async getDiveCode(): Promise<any> {
-    this.diveCode = await this.judgeService.getDiveCode().pipe(map(res => res.diveCode)).toPromise();
+    try {
+      this.diveCode = await this.judgeService.getDiveCode().pipe(map(res => res.diveCode)).toPromise();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async saveDiveCode(): Promise<any> {
-    await this.judgeService.setDiveCode(this.diveCode).toPromise();
+    try {
+      await this.judgeService.setDiveCode(this.diveCode).toPromise();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async readJudges(): Promise<any> {
@@ -44,6 +52,10 @@ export class ScoreComponent implements OnInit {
   }
 
   async send(): Promise<any> {
-    // TODO: api integration
+    try {
+      await this.judgeService.write(Number(this.selectedJudgeId), {msgFromRecorder: this.msgFromRecorder}).toPromise();
+    } catch(e) {
+      console.log(e);
+    }
   }
 }
