@@ -16,6 +16,11 @@ export class ScoreComponent implements OnInit {
   scores: number[] = [];
   msgFromRecorder: string = '';
   selectedJudgeId: string;
+  allPlusJudges: {
+    id: number,
+    judgeNumber: string,
+    msgFromRecorder: string
+  }[] = [];
 
   private autoSaveInterval: number = setInterval( ()=>{
     this.readJudges();
@@ -28,6 +33,7 @@ export class ScoreComponent implements OnInit {
   ngOnInit(): void {
     this.getDiveCode();
     this.readJudges();
+    this.readAllPlusJudges();
   }
 
   async getDiveCode(): Promise<any> {
@@ -51,9 +57,24 @@ export class ScoreComponent implements OnInit {
     this.scores = this.judges.map(judge => judge.score);
   }
 
+  async readAllPlusJudges(): Promise<any> {
+    this.allPlusJudges.push({
+      id: 0,
+      judgeNumber: 'All',
+      msgFromRecorder: ''
+    });
+    this.allPlusJudges = this.allPlusJudges.concat(await this.judgeService.readAllPlusJudges().toPromise());
+  }
   async send(): Promise<any> {
     try {
-      await this.judgeService.write(Number(this.selectedJudgeId), {msgFromRecorder: this.msgFromRecorder}).toPromise();
+      if(this.selectedJudgeId === '0') {
+        for(let i = 1; i < this.allPlusJudges.length; i++) {
+          await this.judgeService.write(this.allPlusJudges[i].id, {msgFromRecorder: this.msgFromRecorder}).toPromise();
+        }
+      } else {
+        await this.judgeService.write(Number(this.selectedJudgeId), {msgFromRecorder: this.msgFromRecorder}).toPromise();
+      }
+      alert("success!");
     } catch(e) {
       console.log(e);
     }

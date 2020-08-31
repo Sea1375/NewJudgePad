@@ -39,7 +39,7 @@
       </td>
       <td>
         <select class="form-control" id="sel1" [(ngModel)]="selectedJudgeId">
-          <option *ngFor="let judge of judges" [value]="judge.id">{{judge.judgeNumber}}</option>
+          <option *ngFor="let judge of allPlusJudges" [value]="judge.id">{{judge.judgeNumber}}</option>
         </select>
       </td>
     </tr>

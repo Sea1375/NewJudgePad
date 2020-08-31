@@ -61,4 +61,11 @@ export class JudgeService {
     return this.http.get<{msgFromRecorder: string}>(`${environment.api}/judge/read/${id}/msgFromRecorder`);
   }
 
+  readAllPlusJudges(): Observable<{ id: number, judgeNumber: string, msgFromRecorder: string }[]> {
+    return this.http.get<{ id: number, judgeNumber: string, msgFromRecorder: string }[]>(`${environment.api}/judge/read/allPlusJudges`);
+  }
+
+  submitScoreIsValid(id: number): Observable<{isValid: boolean}> {
+    return this.http.get<{isValid: boolean}>(`${environment.api}/judge/read/score/exist/${id}`);
+  }
 }

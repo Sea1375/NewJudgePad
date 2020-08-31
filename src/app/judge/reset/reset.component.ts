@@ -14,10 +14,6 @@ export class ResetComponent implements OnInit {
   isLoading = false;
   success: string = 'none';
   form: FormGroup = this.formBuilder.group({
-    oldUsername: ['', Validators.required],
-    oldPassword: ['', Validators.required],
-    name:['', [Validators.required]],
-    username: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
@@ -36,18 +32,15 @@ export class ResetComponent implements OnInit {
     try {
       this.isLoading = true;
       this.success = 'none';
-      console.log(this.form.value.name);
+
       const result: { status: boolean }  = await this.judgeService.reset({
-        oldUsername: this.form.value.oldUsername,
-        oldPassword: this.form.value.oldPassword,
-        name: this.form.value.name,
-        username: this.form.value.username,
         email: this.form.value.email,
         password: this.form.value.password
       }).toPromise();
+
       if(result.status) {
         this.success = 'success';
-        this.router.navigate(['judge/login']);
+        //this.router.navigate(['judge/login']);
       } else {
         this.success = 'notExist';
       }

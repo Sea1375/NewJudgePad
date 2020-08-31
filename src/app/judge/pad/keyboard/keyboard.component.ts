@@ -15,12 +15,14 @@ export class KeyboardComponent implements OnInit {
   keys: Key[] = KEYS;
   isLoading = false;
   currentScore = 0;
+  status = true;
+
   constructor(
     private judgeService: JudgeService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log(this.keys);
   }
 
   setScore(key: number): void {
@@ -34,11 +36,18 @@ export class KeyboardComponent implements OnInit {
   async send(): Promise<any> {
     try {
       this.isLoading = true;
-      const result = await this.judgeService.write(this.id, {score: this.currentScore}).toPromise();
-    } catch(e) {
+      const star: { isValid: boolean } = await this.judgeService.submitScoreIsValid(this.id).toPromise();
+      if (star.isValid === true) {
+        await this.judgeService.write(this.id, {score: this.currentScore}).toPromise();
+        this.status = true;
+      } else {
+        this.status = false;
+      }
+    } catch (e) {
       console.log(e);
     } finally {
       this.isLoading = false;
     }
   }
+
 }
