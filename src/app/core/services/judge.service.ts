@@ -26,7 +26,11 @@ export class JudgeService {
   }
 
   reset(data): Observable<{ status: boolean }> {
-    return this.http.post<{status: boolean}>(`${environment.api}/judge/reset`, data);
+    return this.http.post<{ status: boolean }>(`${environment.api}/judge/password-reset`, data);
+  }
+
+  sendEmail(data): Observable<{ status: boolean }> {
+    return this.http.post<{status: boolean}>(`${environment.api}/judge/send-email`, data);
   }
 
   getGeneralInfo(judgeId: number): Observable<GeneralInfo> {

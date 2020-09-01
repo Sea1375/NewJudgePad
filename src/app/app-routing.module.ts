@@ -12,12 +12,14 @@ import { ResetComponent } from './judge/reset/reset.component';
 import { RecorderComponent } from './recorder/recorder/recorder.component';
 import { JudgeGuard } from './core/guards/judge.guard';
 import { RecorderGuard } from './core/guards/recorder.guard';
+import { PasswordResetComponent } from './judge/password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/judge/login', pathMatch: 'full' },
   { path: 'judge/login', component: JudgeLoginComponent },
   { path: 'judge/register', component: RegisterComponent },
   { path: 'judge/reset', component: ResetComponent },
+  { path: 'judge/password-reset/:randomString', component:PasswordResetComponent },
   { path: 'judge/pad/:id', component: PadComponent, canActivate: [JudgeGuard] },
   { path: 'recorder', redirectTo: '/recorder/login', pathMatch: 'full' },
   { path: 'recorder/login', component: RecorderLoginComponent },

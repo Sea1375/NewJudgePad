@@ -18,6 +18,7 @@ import { SummaryComponent } from './judge/pad/summary/summary.component';
 import { KeyboardComponent } from './judge/pad/keyboard/keyboard.component';
 import { MessageComponent } from './judge/pad/message/message.component';
 import { RecorderComponent } from './recorder/recorder/recorder.component';
+import { PasswordResetComponent } from './judge/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RecorderComponent } from './recorder/recorder/recorder.component';
     KeyboardComponent,
     MessageComponent,
     RecorderComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

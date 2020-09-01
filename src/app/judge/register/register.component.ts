@@ -49,14 +49,13 @@ export class RegisterComponent implements OnInit {
       this.isLoading = true;
       this.success = 'none';
       console.log(this.form.value.name);
-      await this.judgeService.register({
+      const result:{status: boolean} = await this.judgeService.register({
         name: this.form.value.name,
         username: this.form.value.username,
         email: this.form.value.email,
         password: this.form.value.password
       }).toPromise();
-      this.success = 'success';
-      this.router.navigate(['judge/login']);
+      this.success = result.status ? 'success' : 'failed';
     } catch (e) {
       this.success = 'failed';
     } finally {

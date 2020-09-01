@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JudgeService } from '../../core/services/judge.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { confirmPasswordValidator } from '../../core/utils/validators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset',
@@ -12,40 +10,30 @@ import { Router } from '@angular/router';
 export class ResetComponent implements OnInit {
 
   isLoading = false;
-  success: string = 'none';
+  status: string = 'none';
   form: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
   });
 
   constructor(
     private judgeService: JudgeService,
     private formBuilder: FormBuilder,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  async reset(): Promise<any> {
+  async send(): Promise<any> {
     try {
       this.isLoading = true;
-      this.success = 'none';
-
-      const result: { status: boolean }  = await this.judgeService.reset({
+      this.status = 'none';
+      const result: { status: boolean }  = await this.judgeService.sendEmail({
         email: this.form.value.email,
-        password: this.form.value.password
       }).toPromise();
-
-      if(result.status) {
-        this.success = 'success';
-        //this.router.navigate(['judge/login']);
-      } else {
-        this.success = 'notExist';
-      }
+      this.status = result.status ? 'success' : 'failed';
     } catch (e) {
-      this.success = 'failed';
+      console.log(e);
+      this.status = 'failed';
     } finally {
       this.isLoading = false;
     }
