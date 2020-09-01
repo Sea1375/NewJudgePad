@@ -21,8 +21,8 @@ export class JudgeService {
     return this.http.post<{ id: number }>(`${environment.api}/judge/login/get-id`, data);
   }
 
-  register(data): Observable<any> {
-    return this.http.post(`${environment.api}/judge/register`, data);
+  register(data): Observable<{status: boolean}> {
+    return this.http.post<{status: boolean}>(`${environment.api}/judge/register`, data);
   }
 
   reset(data): Observable<{ status: boolean }> {
