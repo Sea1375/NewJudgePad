@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://judge.brooker.cloud/api'
+  api: 'http://judge.brooker.cloud/api'
 };

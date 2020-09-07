@@ -12,6 +12,7 @@ export class JudgeSelectionComponent implements OnInit {
 
   isLoading = false;
   status = 'none';
+  statusString = '';
   judges: Judge[] = [];
   users: User[] = [];
   assignedUsers: any = {};
@@ -26,23 +27,41 @@ export class JudgeSelectionComponent implements OnInit {
   }
 
   async readJudges(): Promise<any> {
-    this.judges = await this.judgeService.readAll().toPromise();
-    // this.assignedUsers = this.judges.filter(judge => judge.userId !=0).map(judge => ({
-    //   judge_id: judge.id,
-    //   user_id: judge.userId
-    // }));
-    // console.log(this.assignedUsers);
+    try {
+      this.isLoading = true;
+      this.judges = await this.judgeService.readAll().toPromise();
+      if (this.users.length) {
+        this.loadAssignedUsers();
+      }
+    } catch (e) {
+      console.log(e);
+      // TODO: show toast with provided e
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   async readUsers(): Promise<any> {
     try {
       this.isLoading = true;
       this.users = await this.judgeService.readUsers().toPromise();
+      if (this.judges.length) {
+        this.loadAssignedUsers();
+      }
     } catch (e) {
       console.log(e);
     } finally {
       this.isLoading = false;
     }
+  }
+
+  loadAssignedUsers() { // TODO: change method name
+    this.judges.forEach(judge => {
+      const userId = this.users.find(user => user.id === judge.userId);
+      if (userId) {
+        this.assignedUsers[judge.id] = userId;
+      }
+    });
   }
 
   async save(): Promise<any> {
@@ -51,9 +70,6 @@ export class JudgeSelectionComponent implements OnInit {
         judge_id: key,
         user_id: this.assignedUsers[key].id
       }));
-      for(let i = 1; i <= 12; i++) {
-        await this.judgeService.write(i, {userId: 0}).toPromise();
-      }
       for(let i = 0; i < payload.length; i ++) {
         await this.judgeService.write(Number(payload[i].judge_id), {userId: payload[i].user_id}).toPromise();
       }
@@ -61,6 +77,22 @@ export class JudgeSelectionComponent implements OnInit {
     } catch (e) {
       console.log(e);
       this.status = 'failed';
+    } finally {
+      this.statusString = 'saved';
+    }
+  }
+  async clear(): Promise<any> {
+    try {
+      for(let i = 1; i <= 12; i++) {
+        await this.judgeService.write(i, {userId: 0}).toPromise();
+      }
+      this.status = 'success';
+      this.assignedUsers = {};
+    } catch (e) {
+      console.log(e);
+      this.status = 'failed';
+    } finally {
+      this.statusString = 'cleared';
     }
   }
 }

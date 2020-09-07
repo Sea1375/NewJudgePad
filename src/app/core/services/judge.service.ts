@@ -24,7 +24,9 @@ export class JudgeService {
   register(data): Observable<{status: boolean}> {
     return this.http.post<{status: boolean}>(`${environment.api}/judge/register`, data);
   }
-
+  changeBackend(id: number, data) {
+    return this.http.post(`${environment.api}/judge/changeBackend/${id}`, data);
+  }
   reset(data): Observable<{ status: boolean }> {
     return this.http.post<{ status: boolean }>(`${environment.api}/judge/password-reset`, data);
   }

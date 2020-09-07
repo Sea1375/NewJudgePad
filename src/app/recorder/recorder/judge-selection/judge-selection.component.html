@@ -13,12 +13,13 @@
 </table>
 <div class="text-center">
   <div *ngIf="status=='success'">
-    <h5>Judges are saved successfully.</h5>
+    <h5>Judges are {{statusString}} successfully.</h5>
   </div>
   <div *ngIf="status=='failed'">
     <h5>This action is failed.</h5>
   </div>
 </div>
-<div class="text-center">
-  <button class="btn btn-info text-center" (click)="save()">Save</button>
+<div class="text-center d-flex justify-content-around">
+  <button class="btn btn-info btn-lg btn-block m-5" (click)="clear()">Clear</button>
+  <button class="btn btn-info btn-lg btn-block m-5" (click)="save()">Save</button>
 </div>

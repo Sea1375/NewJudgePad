@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recorder',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class RecorderComponent implements OnInit {
 
   selectedPage: string;
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.selectedPage = 'scoresPage';
@@ -16,5 +19,9 @@ export class RecorderComponent implements OnInit {
 
   select(page: string): void {
     this.selectedPage = page;
+  }
+
+  logout(): void {
+    this.router.navigate(['recorder/login']);
   }
 }

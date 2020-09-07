@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Judge } from '../../../core/models/judge';
 import { JudgeService } from '../../../core/services/judge.service';
-import { UserJudge } from '../../../core/models/user-judge';
 import { Router } from '@angular/router';
+
+import { User } from '../../../core/models/user';
 
 @Component({
   selector: 'app-judge-list',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class JudgeListComponent implements OnInit {
 
-  judges: UserJudge[] = [];
+  judges: User[] = [];
 
   constructor(
     private judgeService: JudgeService,
@@ -23,12 +23,12 @@ export class JudgeListComponent implements OnInit {
   }
 
   async readJudgesUserInfo(): Promise<any> {
-    this.judges = await this.judgeService.readJudgesUserInfo().toPromise();
+    this.judges = await this.judgeService.readUsers().toPromise();
   }
 
   async changeCheckbox(index: number, obj: any): Promise<any> {
     try {
-      const result = await this.judgeService.write(this.judges[index].id, {backend: obj.target.checked}).toPromise();
+      const result = await this.judgeService.changeBackend(this.judges[index].id, {backend: obj.target.checked}).toPromise();
     } catch (e) {
       console.log(e);
     } finally {
