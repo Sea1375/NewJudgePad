@@ -51,6 +51,10 @@ export class JudgeService {
     return this.http.get<User[]>(`${environment.api}/user/read/all`);
   }
 
+  deleteUser(id: number): Observable<any> {
+    return this.http.get(`${environment.api}/user/delete/${id}`);
+  }
+
   readJudgesUserInfo(): Observable<UserJudge[]> {
     return this.http.get<UserJudge[]>(`${environment.api}/judge/read/user-info`);
   }

@@ -11,6 +11,7 @@ import { User } from '../../../core/models/user';
 })
 export class JudgeListComponent implements OnInit {
 
+  isLoading = false;
   judges: User[] = [];
 
   constructor(
@@ -28,7 +29,7 @@ export class JudgeListComponent implements OnInit {
 
   async changeCheckbox(index: number, obj: any): Promise<any> {
     try {
-      const result = await this.judgeService.changeBackend(this.judges[index].id, {backend: obj.target.checked}).toPromise();
+      await this.judgeService.changeBackend(this.judges[index].id, {backend: obj.target.checked}).toPromise();
     } catch (e) {
       console.log(e);
     } finally {
@@ -38,5 +39,15 @@ export class JudgeListComponent implements OnInit {
   reset(userId: number): void {
     this.router.navigate(['/judge/reset']);
   }
-
+  async delete(userId: number): Promise<any> {
+    try {
+      this.isLoading = true;
+      await this.judgeService.deleteUser(userId).toPromise();
+      this.readJudgesUserInfo();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }
