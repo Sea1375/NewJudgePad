@@ -11,6 +11,7 @@ import { Judge } from '../../../core/models/judge';
 })
 export class ScoreComponent implements OnInit {
 
+  isLoading = false;
   diveCode: string;
   judges: Judge[];
   scores: number[] = [];
@@ -46,9 +47,12 @@ export class ScoreComponent implements OnInit {
 
   async saveDiveCode(): Promise<any> {
     try {
+      this.isLoading = true;
       await this.judgeService.setDiveCode(this.diveCode).toPromise();
     } catch (e) {
       console.log(e);
+    } finally {
+      this.isLoading = false;
     }
   }
 

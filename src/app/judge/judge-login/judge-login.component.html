@@ -13,6 +13,9 @@
       <label for="user-password"></label>
       <input type="password" [(ngModel)]="loginPass" class="form-control form-control-lg input-lg" id="user-password" placeholder="Password" required>
     </div>
+    <div *ngIf="isLoading" class="mt-1">
+      <h6 class="text-success text-center">Login...</h6>
+    </div>
     <div *ngIf="!registeredJudge" class="mt-1">
       <h6 class="text-danger">Wrong username & password. Try again.</h6>
     </div>

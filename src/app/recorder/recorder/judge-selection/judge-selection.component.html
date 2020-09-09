@@ -12,6 +12,9 @@
   </tr>
 </table>
 <div class="text-center">
+  <div *ngIf="isLoading" class="mt-1">
+    <h6 class="text-success text-center">Processing...</h6>
+  </div>
   <div *ngIf="status=='success'">
     <h5>Judges are {{statusString}} successfully.</h5>
   </div>

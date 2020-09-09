@@ -66,6 +66,7 @@ export class JudgeSelectionComponent implements OnInit {
 
   async save(): Promise<any> {
     try {
+      this.isLoading = true;
       const payload = Object.keys(this.assignedUsers).filter(key => this.assignedUsers[key] ? key : null).map(key => ({
         judge_id: key,
         user_id: this.assignedUsers[key].id
@@ -79,10 +80,12 @@ export class JudgeSelectionComponent implements OnInit {
       this.status = 'failed';
     } finally {
       this.statusString = 'saved';
+      this.isLoading = false;
     }
   }
   async clear(): Promise<any> {
     try {
+      this.isLoading = true;
       for(let i = 1; i <= 12; i++) {
         await this.judgeService.write(i, {userId: 0}).toPromise();
       }
@@ -93,6 +96,7 @@ export class JudgeSelectionComponent implements OnInit {
       this.status = 'failed';
     } finally {
       this.statusString = 'cleared';
+      this.isLoading = false;
     }
   }
 }

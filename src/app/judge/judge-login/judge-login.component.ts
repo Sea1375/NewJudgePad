@@ -11,6 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class JudgeLoginComponent implements OnInit {
 
+  isLoading = false;
   loginName: string;
   loginPass: string;
   registeredJudge = true;
@@ -26,6 +27,7 @@ export class JudgeLoginComponent implements OnInit {
 
   async login(): Promise<any> {
     try {
+      this.isLoading = true;
       const result: {id: number} = await this.judgeService.login({username: this.loginName, password: this.loginPass}).toPromise();
       this.authService.judgeSession = true;
       console.log(result);
@@ -39,6 +41,8 @@ export class JudgeLoginComponent implements OnInit {
       if (e.status === 401) {
         this.registeredJudge = false;
       }
+    } finally {
+      this.isLoading = false;
     }
   }
 

@@ -3,6 +3,9 @@
     <input type=text [(ngModel)]="diveCode">
     <button class="btn btn-info mx-3" (click)="saveDiveCode()">Save</button>
   </h5>
+  <div *ngIf="isLoading" class="mt-1">
+    <h6 class="text-success text-center">Saving...</h6>
+  </div>
 </div>
 <table class="table table-bordered table-responsive-md table-striped text-center">
   <tr>
